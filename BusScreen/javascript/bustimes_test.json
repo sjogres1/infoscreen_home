@@ -1,0 +1,79 @@
+[{
+    "code": "2222220",
+    "code_short": "E2215",
+    "name_fi": "Miestenmets\u00e4",
+    "name_sv": "Karlaskogen",
+    "city_fi": "Espoo",
+    "city_sv": "Esbo",
+    "lines": ["2102  2:Kamppi, laituri 41", "2102T 2:Kamppi, laituri 41", "2103  2:Kamppi, laituri 42", "2103T 2:Kamppi, laituri 42", "2501V 2:Vattuniemi", "2551  1:Westendinasema"],
+    "coords": "2546425,6674502",
+    "wgs_coords": "24.83353,60.17933",
+    "accessibility": {
+        "width_tilt": 0,
+        "length_tilt": 0,
+        "min_width": 0,
+        "max_width": 0,
+        "depth": 0,
+        "curb_height_road": 0,
+        "curb_height_sidewalk": 0,
+        "rear_railing_height": 0,
+        "protecting_height": 0,
+        "lower_moulding": 0,
+        "bench_height": 0,
+        "trash_can": 0,
+        "danger": 0,
+        "shelter": 0,
+        "light": 0,
+        "warning_area": 0,
+        "difference_warning_area": 0,
+        "difference_waiting_area": 0,
+        "unobstructed_access": 0,
+        "cycle_track_included": 0,
+        "cycle_track_position": 0,
+        "stop_model": 0,
+        "accessibility": 0,
+        "class": 4,
+        "notes": ""
+    },
+    "departures": [{
+        "code": "2102T 2",
+        "time": 1500,
+        "date": 20160721
+    }, {
+        "code": "2103  2",
+        "time": 1502,
+        "date": 20160721
+    }, {
+        "code": "2102T 2",
+        "time": 1504,
+        "date": 20160721
+    }, {
+        "code": "2103  2",
+        "time": 1505,
+        "date": 20160721
+    }, {
+        "code": "2102  2",
+        "time": 1506,
+        "date": 20160721
+    }, {
+        "code": "2103  2",
+        "time": 1522,
+        "date": 20160721
+    }, {
+        "code": "2102T 2",
+        "time": 1526,
+        "date": 20160721
+    }, {
+        "code": "2103  2",
+        "time": 1545,
+        "date": 20160721
+    }],
+    "timetable_link": "http:\/\/aikataulut.reittiopas.fi\/pysakit\/fi\/2222220.html",
+    "omatlahdot_link": "http:\/\/www.omatlahdot.fi\/omatlahdot\/web?command=quicksearch&stopid=2222220&lang=1",
+    "address_fi": "Karhusaarentie",
+    "address_sv": "Bj\u00f6rnholmsv\u00e4gen",
+    "short_name": "",
+    "platform_number": "",
+    "terminal_code": "",
+    "terminal_name": ""
+}]
