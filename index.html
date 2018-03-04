@@ -5,12 +5,17 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="author" content="Sauli Sjögren">
+    <title>Infoscreen</title>
     <link rel="stylesheet" type="text/css" href="BusScreen/css/normalize.css">
     <link href='https://fonts.googleapis.com/css?family=PT+Mono' rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="BusScreen/css/aaltoes.css">
     <link href='http://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
     <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
     <script src="BusScreen/javascript/bus.js"></script>
     <script src="BusScreen/javascript/background_widget.js"></script>
@@ -18,25 +23,23 @@
 </head>
 
 <body>
+    <div class="page-header time_and_date">
 
-  	<div class="time_and_date">
-	<div id="temperature">
-	</div> 
+        <div id="temperature">
+        </div>
         <div id="date"></div>
-    <div class="clock">
-          
-        <div class="hour"></div>
-        <div class="min"></div>
-        <div class="second"></div>
-         
-    </div>
-    
-    </div>
-    
+        <div class="clock">
 
-       
+            <div class="hour"></div>
+            <div class="min"></div>
+            <div class="second"></div>
 
-    <div class="eventscript">
+        </div>
+
+    </div>
+
+
+    <div class="fancy-header eventscript">
         <h1 id="hotel_name">Maalarinkuja</h1>
         <!--<div class="picturehandler"></div>-->
 
@@ -45,13 +48,21 @@
 
 
     <div class="busschedule" id="schedule1">
-        <center>
-            <h1>Juna</h1></center>
+
+        <h1>Juna</h1>
     </div>
 
     <div class="busschedule" id="schedule2">
-        <center>
-            <h1>Luotijuna</h1></center>
+        <h1>Luotijuna</h1>
+    </div>
+
+    <div class="busschedule" id="schedule3">
+
+        <h1>Urheilupuisto</h1>
+    </div>
+
+    <div class="busschedule" id="schedule4">
+        <h1>Mestarinsilta</h1>
     </div>
 
 

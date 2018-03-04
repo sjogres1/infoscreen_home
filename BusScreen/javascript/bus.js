@@ -2,7 +2,7 @@
 $(document).ready(function () {
     var date;
 
-schedules();
+    schedules();
 
     function schedules() {
         date = new Date();
@@ -12,40 +12,50 @@ schedules();
             return l;
         }
 
-            $.getJSON("http://api.reittiopas.fi/hsl/prod/?request=stop&userhash=http://api.reittiopas.fi/hsl/prod/?request=stop&userhash=d021ecb37bc7d4e4f679f686fd387017d5f52af4646d&format=json&code=E1116&format=json&code=E1060", function (data) {
-                print_schedule(data);
-            });
-            $.getJSON("http://api.reittiopas.fi/hsl/prod/?request=stop&userhash=d021ecb37bc7d4e4f679f686fd387017d5f52af4646d&format=json&code=E1058", function (data) {
-                print_schedule2(data);
-            });
+        $.getJSON("BusScreen/javascript/bustimes_test.json", function (data) {
+            print_schedule(data);
+        });
+        $.getJSON("BusScreen/javascript/bustimes_test.json", function (data) {
+            print_schedule2(data);
+        });
 
+        $.getJSON("BusScreen/javascript/bustimes_test.json", function (data) {
+            print_schedule3(data);
+        });
 
+        $.getJSON("BusScreen/javascript/bustimes_test.json", function (data) {
+            print_schedule4(data);
+        });
+
+        /*"http://api.reittiopas.fi/hsl/prod/?request=stop&userhash=http://api.reittiopas.fi/hsl/prod/?request=stop&userhash=d021ecb37bc7d4e4f679f686fd387017d5f52af4646d&format=json&code=E1116&format=json&code=E1060
+          http://api.reittiopas.fi/hsl/prod/?request=stop&userhash=d021ecb37bc7d4e4f679f686fd387017d5f52af4646d&format=json&code=E1058
+        */
 
         setTimeout(function () {
-            schedules()
+            schedules();
         }, 30000);
     }
-    
+
     // Creates table where schedules are shown
-     var theader = "<thead>" + "<tr>" + "<th>" + "Line" + "</th>" + "<th>" + "Departure" + "</th>" + "<th>" + "Destination" + "</th>" + "</tr>" + "</thead>";
-   
+    var theader = "<thead>" + "<tr>" + "<th>" + "Line" + "</th>" + "<th>" + "Departure" + "</th>" + "<th>" + "Destination" + "</th>" + "</tr>" + "</thead>";
 
 
 
 
-    
+
+
 
     function print_schedule(data) {
         // Prints schedules on the screen
-      var i;
-      var sche_num1;
-        
+        var i;
+        var sche_num1;
+
         $("#mytable").remove();
         var tbl = $("<table/>").attr("id", "mytable");
         $("#schedule1").append(tbl);
         $("#mytable").append(theader);
 
-        if (data[0].departures == null) {
+        if (data[0].departures === null) {
             // If there are no schedules at the time, an empty table will be shown
             for (i = 0; i < 6; i++) {
                 var td1 = "<tr><td>" + "</td>";
@@ -54,19 +64,18 @@ schedules();
                 $("#mytable").append(td1 + td2 + td3);
             }
         } else {
-            if(data[0].departures.length >5) {
-                sche_num = 6;
+            if (data[0].departures.length > 5) {
+                sche_num1 = 6;
+            } else {
+                sche_num1 = data[0].departures.length;
             }
-            else{
-                sche_num = data[0].departures.length;
-            }
-            for (i = 0; i < sche_num; i++) {
+            for (i = 0; i < sche_num1; i++) {
                 var td1 = "<tr><td>" + cleanBusNumber(data[0].departures[i]["code"]) + "</td>";
                 var td2 = "<td>" + timeCleaner(data[0].departures[i].time) + "</td>";
                 var td3 = "<td>" + searchDestination(data, data[0].departures[i].code) + "</td></tr>";
                 $("#mytable").append(td1 + td2 + td3);
-                console.log("i is "+ i);
-                if (i ==6) {
+                console.log("i is " + i);
+                if (i == 6) {
                     break;
                 }
             }
@@ -77,9 +86,9 @@ schedules();
                 $("#mytable").append(td1 + td2 + td3);
             }
         }
-            
-        }
-    
+
+    }
+
 
     function print_schedule2(data) {
         // does the same thing as print_schedule(data)
@@ -90,19 +99,18 @@ schedules();
         $("#schedule2").append(tbl2);
         $("#mytable2").append(theader);
 
-        if (data[0].departures == null) {
+        if (data[0].departures === null) {
             // If there are no schedules at the time, an empty table will be shown
-            for (j = 0; j < 6; i++) {
+            for (j = 0; j < 6; j++) {
                 var td1 = "<tr><td>" + "</td>";
                 var td2 = "<td>" + "</td>";
                 var td3 = "<td>" + "</td></tr>";
                 $("#mytable2").append(td1 + td2 + td3);
             }
         } else {
-            if(data[0].departures.length >5) {
+            if (data[0].departures.length > 5) {
                 sche_num = 6;
-            }
-            else{
+            } else {
                 sche_num = data[0].departures.length;
             }
             for (j = 0; j < sche_num; j++) {
@@ -110,21 +118,107 @@ schedules();
                 var td2 = "<td>" + timeCleaner(data[0].departures[j].time) + "</td>";
                 var td3 = "<td>" + searchDestination(data, data[0].departures[j].code) + "</td></tr>";
                 $("#mytable2").append(td1 + td2 + td3);
-                console.log("j is "+j)
+                console.log("j is " + j);
                 if (j == 6) {
-                    
+
                     break;
                 }
 
             }
             for (j; j < 6; j++) {
-                console
                 var td1 = "<tr><td>" + "</td>";
                 var td2 = "<td>" + "</td>";
                 var td3 = "<td>" + "</td></tr>";
                 $("#mytable2").append(td1 + td2 + td3);
             }
         }
+    }
+
+    function print_schedule3(data) {
+        // Prints schedules on the screen
+        var k;
+        var sche_num3;
+
+        $("#mytable3").remove();
+        var tbl = $("<table/>").attr("id", "mytable3");
+        $("#schedule3").append(tbl);
+        $("#mytable3").append(theader);
+
+        if (data[0].departures === null) {
+            // If there are no schedules at the time, an empty table will be shown
+            for (k = 0; k < 6; k++) {
+                var td1 = "<tr><td>" + "</td>";
+                var td2 = "<td>" + "</td>";
+                var td3 = "<td>" + "</td></tr>";
+                $("#mytable3").append(td1 + td2 + td3);
+            }
+        } else {
+            if (data[0].departures.length > 5) {
+                sche_num3 = 6;
+            } else {
+                sche_num3 = data[0].departures.length;
+            }
+            for (k = 0; k < sche_num3; k++) {
+                var td1 = "<tr><td>" + cleanBusNumber(data[0].departures[k]["code"]) + "</td>";
+                var td2 = "<td>" + timeCleaner(data[0].departures[k].time) + "</td>";
+                var td3 = "<td>" + searchDestination(data, data[0].departures[k].code) + "</td></tr>";
+                $("#mytable3").append(td1 + td2 + td3);
+                if (k == 6) {
+                    break;
+                }
+            }
+            for (k; k < 6; k++) {
+                var td1 = "<tr><td>" + "</td>";
+                var td2 = "<td>" + "</td>";
+                var td3 = "<td>" + "</td></tr>";
+                $("#mytable3").append(td1 + td2 + td3);
+            }
+        }
+
+    }
+
+    function print_schedule4(data) {
+        // Prints schedules on the screen
+        var g;
+        var sche_num4;
+
+        $("#mytable4").remove();
+        var tbl = $("<table/>").attr("id", "mytable4");
+        $("#schedule4").append(tbl);
+        $("#mytable4").append(theader);
+
+        if (data[0].departures === null) {
+            // If there are no schedules at the time, an empty table will be shown
+            for (g = 0; g < 6; g++) {
+                var td1 = "<tr><td>" + "</td>";
+                var td2 = "<td>" + "</td>";
+                var td3 = "<td>" + "</td></tr>";
+                $("#mytable4").append(td1 + td2 + td3);
+            }
+        } else {
+            if (data[0].departures.length > 5) {
+                sche_num4 = 6;
+            } else {
+                sche_num4 = data[0].departures.length;
+            }
+            for (g = 0; g < sche_num4; g++) {
+                var td1 = "<tr><td>" + cleanBusNumber(data[0].departures[g]["code"]) + "</td>";
+                var td2 = "<td>" + timeCleaner(data[0].departures[g].time) + "</td>";
+                var td3 = "<td>" + searchDestination(data, data[0].departures[g].code) + "</td></tr>";
+                $("#mytable4").append(td1 + td2 + td3);
+
+                if (g == 6) {
+                    break;
+                }
+            }
+            for (g; g < 6; g++) {
+                var td1 = "<tr><td>" + "</td>";
+                var td2 = "<td>" + "</td>";
+                var td3 = "<td>" + "</td></tr>";
+                $("#mytable4").append(td1 + td2 + td3);
+            }
+        }
+
     }
 
 
@@ -155,12 +249,12 @@ schedules();
 
     function cleanBusNumber(line) {
         // function styles the line number to a normal bus line number
-       line = line.split(" ")[0];
+        line = line.split(" ")[0];
         line = line.slice(1);
-        if (line[0] === "0") 
+        if (line[0] === "0")
             line = line.replace(0, "");
 
-        if(line[0] === "0" && line[1] === "2") {
+        if (line[0] === "0" && line[1] === "2") {
             line = line.replace(0, "");
             line = line.replace(2, "");
         }
@@ -169,4 +263,3 @@ schedules();
 
 
 });
-
