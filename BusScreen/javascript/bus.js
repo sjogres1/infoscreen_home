@@ -26,6 +26,14 @@ $(document).ready(function () {
         $.getJSON("BusScreen/javascript/bustimes_test.json", function (data) {
             print_schedule4(data);
         });
+        
+        /*$.getJSON("https://rata.digitraffic.fi/api/v1/live-trains/station/Lpv/Hki?include_nonstopping=false&limit=50", function (data) {
+            test(data);
+        });*/
+        
+         $.getJSON("https://rata.digitraffic.fi/api/v1/live-trains/station/Lpv/Hki?include_nonstopping=false&limit=50", function (data) {
+            test2(data);
+        });
 
         /*"http://api.reittiopas.fi/hsl/prod/?request=stop&userhash=http://api.reittiopas.fi/hsl/prod/?request=stop&userhash=d021ecb37bc7d4e4f679f686fd387017d5f52af4646d&format=json&code=E1116&format=json&code=E1060
           http://api.reittiopas.fi/hsl/prod/?request=stop&userhash=d021ecb37bc7d4e4f679f686fd387017d5f52af4646d&format=json&code=E1058
@@ -33,7 +41,7 @@ $(document).ready(function () {
 
         setTimeout(function () {
             schedules();
-        }, 30000);
+        }, 30000000); //30000
     }
 
     // Creates table where schedules are shown
@@ -41,7 +49,63 @@ $(document).ready(function () {
 
 
 
-
+    function test(data) {
+        
+        for (t = 0; t <49;t++) {
+            if (data[t].commuterLineID == "A" || data[t].commuterLineID == "L"){
+        
+            console.log(data[t].commuterLineID);
+            a = data[t];
+            console.log(a.timeTableRows);
+            $.each(a.timeTableRows, function (index,value) {
+                if(value.stationShortCode == "LPV" && value.type == "ARRIVAL"){
+                   console.log(value.commercialTrack);
+                    var train_time = value.scheduledTime;
+                    train_time = train_time.replace("2018-06-03T", "");
+                    train_time = train_time.replace(/[[:][0-9][0-9][.][0][0][0][Z]+/g, "");
+                    console.log(train_time);
+                    console.log(value.scheduledTime);
+                    // 2018-06-03T04:26:06.000Z
+                }
+            
+                
+            });
+        }
+        }
+       
+        
+       
+    
+    }
+    
+    function test2(data) {
+        
+        for (t = 0; t <49;t++) {
+            if (data[t].commuterLineID == "U" || data[t].commuterLineID == "Y" || data[t].commuterLineID == "E"){
+        
+            console.log(data[t].commuterLineID);
+            a = data[t];
+            console.log(a.timeTableRows);
+            $.each(a.timeTableRows, function (index,value) {
+                if(value.stationShortCode == "LPV" && value.type == "ARRIVAL"){
+                   console.log(value.commercialTrack);
+                    var train_time = value.scheduledTime;
+                    train_time = train_time.replace("2018-06-03T", "");
+                    train_time = train_time.replace(/[[:][0-9][0-9][.][0][0][0][Z]+/g, "");
+                    console.log(train_time);
+                    console.log(value.scheduledTime);
+                    // 2018-06-03T04:26:06.000Z
+                }
+            
+                
+            });
+        }
+        }
+       
+        
+       
+    
+    }
 
 
 
@@ -74,7 +138,6 @@ $(document).ready(function () {
                 var td2 = "<td>" + timeCleaner(data[0].departures[i].time) + "</td>";
                 var td3 = "<td>" + searchDestination(data, data[0].departures[i].code) + "</td></tr>";
                 $("#mytable").append(td1 + td2 + td3);
-                console.log("i is " + i);
                 if (i == 6) {
                     break;
                 }
@@ -118,7 +181,7 @@ $(document).ready(function () {
                 var td2 = "<td>" + timeCleaner(data[0].departures[j].time) + "</td>";
                 var td3 = "<td>" + searchDestination(data, data[0].departures[j].code) + "</td></tr>";
                 $("#mytable2").append(td1 + td2 + td3);
-                console.log("j is " + j);
+                
                 if (j == 6) {
 
                     break;
