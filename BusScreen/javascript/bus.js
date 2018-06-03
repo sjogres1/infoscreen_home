@@ -12,30 +12,30 @@ $(document).ready(function () {
             return l;
         }
 
-        $.getJSON("BusScreen/javascript/bustimes_test.json", function (data) {
+        $.getJSON("https://rata.digitraffic.fi/api/v1/live-trains/station/Lpv/Hki?include_nonstopping=false&limit=50", function (data) {
             print_schedule(data);
         });
-        $.getJSON("BusScreen/javascript/bustimes_test.json", function (data) {
+        $.getJSON("https://rata.digitraffic.fi/api/v1/live-trains/station/Lpv/Hki?include_nonstopping=false&limit=50", function (data) {
             print_schedule2(data);
         });
 
-        $.getJSON("BusScreen/javascript/bustimes_test.json", function (data) {
+        /*$.getJSON("BusScreen/javascript/bustimes_test.json", function (data) {
             print_schedule3(data);
         });
 
         $.getJSON("BusScreen/javascript/bustimes_test.json", function (data) {
             print_schedule4(data);
         });
-        
-        /*$.getJSON("https://rata.digitraffic.fi/api/v1/live-trains/station/Lpv/Hki?include_nonstopping=false&limit=50", function (data) {
+
+        $.getJSON("https://rata.digitraffic.fi/api/v1/live-trains/station/Lpv/Hki?include_nonstopping=false&limit=50", function (data) {
             test(data);
-        });*/
-        
-         $.getJSON("https://rata.digitraffic.fi/api/v1/live-trains/station/Lpv/Hki?include_nonstopping=false&limit=50", function (data) {
+        });
+
+        $.getJSON("https://rata.digitraffic.fi/api/v1/live-trains/station/Lpv/Hki?include_nonstopping=false&limit=50", function (data) {
             test2(data);
         });
 
-        /*"http://api.reittiopas.fi/hsl/prod/?request=stop&userhash=http://api.reittiopas.fi/hsl/prod/?request=stop&userhash=d021ecb37bc7d4e4f679f686fd387017d5f52af4646d&format=json&code=E1116&format=json&code=E1060
+        "http://api.reittiopas.fi/hsl/prod/?request=stop&userhash=http://api.reittiopas.fi/hsl/prod/?request=stop&userhash=d021ecb37bc7d4e4f679f686fd387017d5f52af4646d&format=json&code=E1116&format=json&code=E1060
           http://api.reittiopas.fi/hsl/prod/?request=stop&userhash=d021ecb37bc7d4e4f679f686fd387017d5f52af4646d&format=json&code=E1058
         */
 
@@ -50,76 +50,110 @@ $(document).ready(function () {
 
 
     function test(data) {
-        
-        for (t = 0; t <49;t++) {
-            if (data[t].commuterLineID == "A" || data[t].commuterLineID == "L"){
-        
-            console.log(data[t].commuterLineID);
-            a = data[t];
-            console.log(a.timeTableRows);
-            $.each(a.timeTableRows, function (index,value) {
-                if(value.stationShortCode == "LPV" && value.type == "ARRIVAL"){
-                   console.log(value.commercialTrack);
-                    var train_time = value.scheduledTime;
-                    train_time = train_time.replace("2018-06-03T", "");
-                    train_time = train_time.replace(/[[:][0-9][0-9][.][0][0][0][Z]+/g, "");
-                    console.log(train_time);
-                    console.log(value.scheduledTime);
-                    // 2018-06-03T04:26:06.000Z
-                }
-            
-                
-            });
+        var a = 0;
+        var counter = 0;
+        var api_parsed = {};
+        var train_time;
+        for (t = 0; t < 49; t++) {
+            if (data[t].commuterLineID == "A" || data[t].commuterLineID == "L") {
+
+                console.log(data[t].commuterLineID);
+                a = data[t];
+                api_parsed[counter] = a;
+                counter++;
+
+                $.each(a.timeTableRows, function (index, value) {
+                    if (value.stationShortCode == "LPV" && value.type == "DEPARTURE") {
+                        console.log(value.commercialTrack);
+                        var train_time = value.scheduledTime;
+                        train_time = train_time.replace("2018-06-03T", "");
+                        train_time = train_time.replace(/[[:][0-9][0-9][.][0][0][0][Z]+/g, "");
+
+
+
+                    }
+
+
+                });
+                console.log(train_time);
+                console.log(api_parsed);
+
+            }
         }
-        }
-       
-        
-       
-    
+
+
+
+
     }
-    
+
     function test2(data) {
-        
-        for (t = 0; t <49;t++) {
-            if (data[t].commuterLineID == "U" || data[t].commuterLineID == "Y" || data[t].commuterLineID == "E"){
-        
-            console.log(data[t].commuterLineID);
-            a = data[t];
-            console.log(a.timeTableRows);
-            $.each(a.timeTableRows, function (index,value) {
-                if(value.stationShortCode == "LPV" && value.type == "ARRIVAL"){
-                   console.log(value.commercialTrack);
-                    var train_time = value.scheduledTime;
-                    train_time = train_time.replace("2018-06-03T", "");
-                    train_time = train_time.replace(/[[:][0-9][0-9][.][0][0][0][Z]+/g, "");
-                    console.log(train_time);
-                    console.log(value.scheduledTime);
-                    // 2018-06-03T04:26:06.000Z
-                }
-            
-                
-            });
+        var a = 0;
+        var counter = 0;
+        var api_parsed = {};
+        var train_time;
+        for (t = 0; t < 49; t++) {
+            if (data[t].commuterLineID == "U" || data[t].commuterLineID == "Y" || data[t].commuterLineID == "E") {
+
+                console.log(data[t].commuterLineID);
+
+                a = data[t];
+                api_parsed[counter] = a;
+                counter++;
+                //console.log(a.timeTableRows);
+                var train_time;
+                $.each(a.timeTableRows, function (index, value) {
+                    if (value.stationShortCode == "LPV" && value.type == "DEPARTURE") {
+                        console.log(value.commercialTrack);
+                        train_time = value.scheduledTime;
+                        train_time = train_time.replace("2018-06-03T", "");
+                        train_time = train_time.replace(/[[:][0-9][0-9][.][0][0][0][Z]+/g, "");
+
+                        // 2018-06-03T04:26:06.000Z
+                    }
+
+
+                });
+                console.log(train_time);
+                console.log("");
+            }
         }
-        }
-       
-        
-       
-    
+
+
+
+
     }
 
 
 
     function print_schedule(data) {
         // Prints schedules on the screen
+        var train_time;
         var i;
         var sche_num1;
+        var api_parsed = {};
+        var a;
 
         $("#mytable").remove();
         var tbl = $("<table/>").attr("id", "mytable");
         $("#schedule1").append(tbl);
         $("#mytable").append(theader);
+        var counter = 0;
+        for (t = 0; t < 49; t++) {
+            if (data[t].commuterLineID == "U" || data[t].commuterLineID == "Y" || data[t].commuterLineID == "E") {
+                api_parsed[counter] = data[t];
+                counter++;
 
-        if (data[0].departures === null) {
+            }
+        }
+        //console.log("tää on api parsed");
+        //console.log(api_parsed);
+        //console.log(counter);
+        //console.log(api_parsed[0].commuterLineID);
+        a = data[t];
+        //console.log(a.timeTableRows);
+
+
+        if (api_parsed[0].commuterLineID === null) {
             // If there are no schedules at the time, an empty table will be shown
             for (i = 0; i < 6; i++) {
                 var td1 = "<tr><td>" + "</td>";
@@ -128,19 +162,35 @@ $(document).ready(function () {
                 $("#mytable").append(td1 + td2 + td3);
             }
         } else {
-            if (data[0].departures.length > 5) {
+            if (counter > 5) {
                 sche_num1 = 6;
             } else {
-                sche_num1 = data[0].departures.length;
+                sche_num1 = counter;
             }
             for (i = 0; i < sche_num1; i++) {
-                var td1 = "<tr><td>" + cleanBusNumber(data[0].departures[i]["code"]) + "</td>";
-                var td2 = "<td>" + timeCleaner(data[0].departures[i].time) + "</td>";
-                var td3 = "<td>" + searchDestination(data, data[0].departures[i].code) + "</td></tr>";
+                a = api_parsed[i];
+                console.log(a.timeTableRows);
+                $.each(a.timeTableRows, function (index, value) {
+                    if (value.stationShortCode == "LPV" && value.type == "DEPARTURE") {
+                        console.log(value.commercialTrack);
+                        train_time = value.scheduledTime;
+                        train_time = train_time.replace(/(\d{4})-(\d{2}-\d{2})T+/g, "");
+                        train_time = train_time.replace(/[[:][0-9][0-9][.][0][0][0][Z]+/g, "");
+                        train_time = train_time.replace(":", " : ")
+                        //console.log(train_time);
+                        //console.log(value.scheduledTime);
+                        // 2018-06-03T04:26:06.000Z
+                    }
+
+
+                });
+
+                var td1 = "<tr><td>" + a.commuterLineID + "</td>";
+                var td2 = "<td>" + train_time + "</td>";
+                var td3 = "<td>" + "Helsinki" + "</td></tr>";
                 $("#mytable").append(td1 + td2 + td3);
-                if (i == 6) {
+                if (i == 6)
                     break;
-                }
             }
             for (i; i < 6; i++) {
                 var td1 = "<tr><td>" + "</td>";
@@ -156,13 +206,33 @@ $(document).ready(function () {
     function print_schedule2(data) {
         // does the same thing as print_schedule(data)
         var j;
+        var train_time;
         var sche_num;
+        var api_parsed = {};
+        var a;
+
         $("#mytable2").remove();
         var tbl2 = $("<table/>").attr("id", "mytable2");
         $("#schedule2").append(tbl2);
         $("#mytable2").append(theader);
 
-        if (data[0].departures === null) {
+        var counter = 0;
+        for (t = 0; t < 49; t++) {
+            if (data[t].commuterLineID == "L" || data[t].commuterLineID == "A") {
+                api_parsed[counter] = data[t];
+                counter++;
+
+            }
+        }
+        console.log("tää on api parsed2");
+        console.log(api_parsed);
+        console.log("counter: " + counter);
+        console.log(api_parsed[0].commuterLineID);
+        a = data[t];
+        //console.log(a.timeTableRows);
+
+
+        if (api_parsed[0].commuterLineID === null) {
             // If there are no schedules at the time, an empty table will be shown
             for (j = 0; j < 6; j++) {
                 var td1 = "<tr><td>" + "</td>";
@@ -171,31 +241,48 @@ $(document).ready(function () {
                 $("#mytable2").append(td1 + td2 + td3);
             }
         } else {
-            if (data[0].departures.length > 5) {
-                sche_num = 6;
+            if (counter > 5) {
+                sche_num1 = 6;
             } else {
-                sche_num = data[0].departures.length;
+                sche_num1 = counter;
             }
-            for (j = 0; j < sche_num; j++) {
-                var td1 = "<tr><td>" + cleanBusNumber(data[0].departures[j]["code"]) + "</td>";
-                var td2 = "<td>" + timeCleaner(data[0].departures[j].time) + "</td>";
-                var td3 = "<td>" + searchDestination(data, data[0].departures[j].code) + "</td></tr>";
-                $("#mytable2").append(td1 + td2 + td3);
+            for (j = 0; j < sche_num1; j++) {
+                a = api_parsed[j];
+                console.log(a.timeTableRows);
+                $.each(a.timeTableRows, function (index, value) {
+                    if (value.stationShortCode == "LPV" && value.type == "DEPARTURE") {
+                        console.log(value.commercialTrack);
+                        train_time = value.scheduledTime;
+                        train_time = train_time.replace(/(\d{4})-(\d{2}-\d{2})T+/g, "");
+                        train_time = train_time.replace(/[[:][0-9][0-9][.][0][0][0][Z]+/g, "");
+                        train_time = train_time.replace(":", " : ")
+                        console.log(train_time);
+                        console.log(value.scheduledTime);
+                        // 2018-06-03T04:26:06.000Z
+                    }
+
+
+                });
                 
-                if (j == 6) {
+                    var td1 = "<tr><td>" + a.commuterLineID + "</td>";
+                    var td2 = "<td>" + train_time + "</td>";
+                    var td3 = "<td>" + "Helsinki" + "</td></tr>";
+                    $("#mytable2").append(td1 + td2 + td3);
 
-                    break;
+                    if (j == 6)
+                        break;
+                    
+
                 }
-
-            }
-            for (j; j < 6; j++) {
-                var td1 = "<tr><td>" + "</td>";
-                var td2 = "<td>" + "</td>";
-                var td3 = "<td>" + "</td></tr>";
-                $("#mytable2").append(td1 + td2 + td3);
+                for (j; j < 6; j++) {
+                    var td1 = "<tr><td>" + "</td>";
+                    var td2 = "<td>" + "</td>";
+                    var td3 = "<td>" + "</td></tr>";
+                    $("#mytable2").append(td1 + td2 + td3);
+                }
             }
         }
-    }
+    
 
     function print_schedule3(data) {
         // Prints schedules on the screen
