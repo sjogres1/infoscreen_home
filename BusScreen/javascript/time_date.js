@@ -26,6 +26,8 @@ $(document).ready(function () {
  function print_temperature() {
            $.getJSON("http://api.openweathermap.org/data/2.5/weather?id=6295613&mode=json&APPID=f2504fd23a51d501c64e5fa91c4f8f84", function (data) {
         var temp_celcius = data.main.temp - 273.15;
+	var temp = temp_celcius.toFixed(1);
+            temp_celcius = temp;
         $("#temperature").html(temp_celcius + "&#x2103");
                console.log(data.wind.speed);
     });
