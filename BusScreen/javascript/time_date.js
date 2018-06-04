@@ -6,9 +6,9 @@ $(document).ready(function () {
     function getTimeDate() {
         // Show current time and date. Clock on the screen
         date = new Date();
-	yy = date.getYear();
-	year = (yy < 1000) ? yy + 1900 : yy;
-	$('#date').html(date.getDate() + "." + (date.getMonth() + 1) + "." + year);
+        yy = date.getYear();
+        year = (yy < 1000) ? yy + 1900 : yy;
+        $('#date').html(date.getDate() + "." + (date.getMonth() + 1) + "." + year);
         $('.hour').html(addZero(date.getHours()) + ":");
         $('.min').html(addZero(date.getMinutes()) + ":");
         $('.second').html(addZero(date.getSeconds()));
@@ -34,7 +34,7 @@ $(document).ready(function () {
         setTimeout(function () {
             print_temperature();
         }, 120000);
-     
+
     }
     print_temperature();
 });
