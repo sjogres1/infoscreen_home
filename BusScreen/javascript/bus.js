@@ -43,7 +43,7 @@ $(document).ready(function () {
 
         setTimeout(function () {
             schedules();
-        }, 30000000); //30000
+        }, 60000); //30000
     }
 
     // Creates table where schedules are shown
