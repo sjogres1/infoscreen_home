@@ -21,23 +21,47 @@ $(document).ready(function () {
             print_schedule2(data);
         });
 
-        /*$.getJSON("BusScreen/javascript/bustimes_test.json", function (data) {
+        /*
+        
+        // uncomment these two if you want 4 different schedules to the screen
+        
+        $.getJSON("https://rata.digitraffic.fi/api/v1/live-trains/station/Lpv/Hki?include_nonstopping=false&limit=50", function (data) {
             print_schedule3(data);
         });
-
-        $.getJSON("BusScreen/javascript/bustimes_test.json", function (data) {
-            print_schedule4(data);
-        });*/
-
         $.getJSON("https://rata.digitraffic.fi/api/v1/live-trains/station/Lpv/Hki?include_nonstopping=false&limit=50", function (data) {
-            test(data);
+            print_schedule4(data);
+        });
+        
+        */
+
+        /*
+        
+        // Testing .json files
+        
+        $.getJSON("BusScreen/javascript/Hki_2_klo11_30.json", function (data) {
+            print_schedule(data);
         });
 
-        /*$.getJSON("https://rata.digitraffic.fi/api/v1/live-trains/station/Lpv/Hki?include_nonstopping=false&limit=50", function (data) {
-            test2(data);
-        });*/
+        $.getJSON("BusScreen/javascript/Hki_klo11_30.json", function (data) {
+            print_schedule2(data);
+        });
+        */
 
-        /*"http://api.reittiopas.fi/hsl/prod/?request=stop&userhash=http://api.reittiopas.fi/hsl/prod/?request=stop&userhash=d021ecb37bc7d4e4f679f686fd387017d5f52af4646d&format=json&code=E1116&format=json&code=E1060
+        /* 
+        $.getJSON("https://rata.digitraffic.fi/api/v1/live-trains/station/Lpv/Hki?include_nonstopping=false&limit=50", function (data) {
+             test(data);
+         });
+         
+         */
+
+        /*
+        $.getJSON("https://rata.digitraffic.fi/api/v1/live-trains/station/Lpv/Hki?include_nonstopping=false&limit=50", function (data) {
+            test2(data);
+        });
+        */
+
+        /*
+        "http://api.reittiopas.fi/hsl/prod/?request=stop&userhash=http://api.reittiopas.fi/hsl/prod/?request=stop&userhash=d021ecb37bc7d4e4f679f686fd387017d5f52af4646d&format=json&code=E1116&format=json&code=E1060
           http://api.reittiopas.fi/hsl/prod/?request=stop&userhash=d021ecb37bc7d4e4f679f686fd387017d5f52af4646d&format=json&code=E1058
         */
 
@@ -68,6 +92,7 @@ $(document).ready(function () {
                     if (value.stationShortCode == "LPV" && value.type == "DEPARTURE") {
                         //console.log(value.commercialTrack);
                         train_time = value.scheduledTime;
+                        // Regex code to parse the api output to more readable format
                         train_time = train_time.replace(/(\d{4})-(\d{2}-\d{2})T+/g, "");
                         train_time = train_time.replace(/[[:][0-9][0-9][.][0][0][0][Z]+/g, "");
 
@@ -79,7 +104,7 @@ $(document).ready(function () {
                 });
                 train_time = timeCleaner(train_time);
                 console.log(train_time);
-                
+
 
             }
         }
@@ -102,7 +127,7 @@ $(document).ready(function () {
                 a = data[t];
                 api_parsed[counter] = a;
                 counter++;
-           
+
                 $.each(a.timeTableRows, function (index, value) {
                     if (value.stationShortCode == "LPV" && value.type == "DEPARTURE") {
                         //console.log(value.commercialTrack);
@@ -381,18 +406,17 @@ $(document).ready(function () {
 
     function timeCleaner(time) {
         var utc = Number(time.substr(0, 2));
-        console.log(" tämä on " + time);
-        utc = utc + 3;
-        if (Number(time.substr(0,2)) > 9) {
-            time = utc + time.substr(2);
-        }
-        else {
-            time = time.substr(0,1) + utc + time.substr(2);
-        }
+        //console.log(Number(time.substr(0, 2)));
+        //console.log(time.substr(2));
+        utc = (utc + 3).toString();
+        // add zeros to hours if they are not shown. For example departure time 08.50 will need this that 0 after before 8 is shown
+        if (utc.length < 2)
+            {
+               utc = "0" + utc.toString();
+            }
+        time = utc + time.substr(2);   
         
         
-
-
         // add zeros to schedules if they are not shown. For example departure time 23.50 will need this that 0 after 5 is shown
         if (time.length === 3) {
             return "0" + time.slice(0, 1) + " : " + time.toString().slice(1);
